@@ -882,7 +882,7 @@ $posts     = $dashboard->get_published_posts();
 <script>
     function postMasterApp() {
         const token = '<?php echo get_option( 'postmasterpro_auth_token', '' ); ?>';
-        const baseUrl = 'http://academic.test/api'
+        const baseUrl = 'https://api.upworkstation.com/api'
         console.log('token', token)
         return {
             isLoading: false,
@@ -975,7 +975,9 @@ $posts     = $dashboard->get_published_posts();
                 try {
                     const response = await fetch(baseUrl + '/question', {
                         headers: {
-                            'Authorization': 'Bearer ' + token
+                            'Authorization': 'Bearer ' + token,
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
                         }
                     });
 

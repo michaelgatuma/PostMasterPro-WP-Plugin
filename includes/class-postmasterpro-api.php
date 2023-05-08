@@ -2,13 +2,15 @@
 // includes/class-postmasterpro-api.php
 
 class PostMasterPro_API {
-	private string $api_base = 'http://academic.test/api';
+	private string $api_base = 'https://api.upworkstation.com/api';
 
 	public function fetch_posts( $token ) {
 		$url      = $this->api_base . '/questions';
 		$response = wp_remote_get( $url, array(
 			'headers' => array(
-				'Authorization' => 'Bearer ' . $token
+				'Authorization' => 'Bearer ' . $token,
+				'Content-Type'  => 'application/json; charset=utf-8',
+				'Accept'        => 'application/json'
 			)
 		) );
 		if ( is_wp_error( $response ) ) {
@@ -23,7 +25,9 @@ class PostMasterPro_API {
 
 		$response = wp_remote_get( $url, array(
 			'headers' => array(
-				'Authorization' => 'Bearer ' . $token
+				'Authorization' => 'Bearer ' . $token,
+				'Content-Type'  => 'application/json; charset=utf-8',
+				'Accept'        => 'application/json'
 			)
 		) );
 
@@ -70,7 +74,8 @@ class PostMasterPro_API {
 		$url      = $this->api_base . 'user';
 		$response = wp_remote_get( $url, array(
 			'headers' => array(
-				'Authorization' => 'Bearer ' . $token
+				'Authorization' => 'Bearer ' . $token,
+				'Content-Type'  => 'application/json; charset=utf-8',
 			)
 		) );
 		if ( is_wp_error( $response ) ) {
@@ -89,6 +94,7 @@ class PostMasterPro_API {
 		$headers     = array(
 			'Authorization' => 'Bearer ' . $token,
 			'Content-Type'  => 'application/json; charset=utf-8',
+			'Accept'        => 'application/json'
 		);
 		$site_url    = get_site_url();
 		$parsed_url  = parse_url( $site_url );
