@@ -19,7 +19,10 @@ if (!defined('WPINC')) {
 
 // Register Tailwind CSS CDN
 function postmasterpro_enqueue_styles(): void {
-	wp_enqueue_style('tailwindcss', 'https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css', array(), '2.2.16');
+	$current_screen = get_current_screen();
+	if ($current_screen->id === 'toplevel_page_postmasterpro') {
+		wp_enqueue_style('tailwindcss', 'https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css', array(), '2.2.16');
+	}
 }
 add_action('admin_enqueue_scripts', 'postmasterpro_enqueue_styles');
 
