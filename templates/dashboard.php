@@ -253,7 +253,7 @@ $posts     = $dashboard->get_published_posts();
 										</div>
 										<div class="w-full h-2 bg-blue-200 rounded-full">
 											<div
-												style="width: <?php echo (100*$posts->found_posts)/5000 ?>%;"
+												style="width: <?php echo ( 100 * $posts->found_posts ) / 5000 ?>%;"
 												class="h-full text-xs text-center text-white bg-blue-600 rounded-full">
 											</div>
 										</div>
