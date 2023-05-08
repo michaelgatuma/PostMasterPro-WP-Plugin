@@ -30,87 +30,7 @@
 $dashboard = new PostMasterPro_Dashboard( '1.0' );
 $posts     = $dashboard->get_published_posts();
 ?>
-<div class="wrap hidden">
-	<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-
-
-	<!-- Display login and registration messages -->
-	<?php if ( isset( $_GET['login'] ) ): ?>
-		<?php if ( $_GET['login'] === 'success' ): ?>
-			<div class="bg-green-500 text-white px-4 py-2 mb-4">
-				Login successful!
-			</div>
-		<?php elseif ( $_GET['login'] === 'error' ): ?>
-			<div class="bg-red-500 text-white px-4 py-2 mb-4">
-				Login error. Please try again.
-			</div>
-		<?php endif; ?>
-	<?php endif; ?>
-
-	<div class="postmasterpro-dashboard">
-		<div class="flex flex-wrap">
-			<!-- Login Form -->
-			<div class="w-full md:w-1/2">
-				<form method="post" action="" class="space-y-4">
-					<h2 class="text-lg font-bold mb-2">Login</h2>
-					<div>
-						<label for="email" class="block">Email</label>
-						<input type="email" name="email" id="email" class="border border-gray-300 p-2 w-full">
-					</div>
-					<div>
-						<label for="password" class="block">Password</label>
-						<input type="password" name="password" id="password" class="border border-gray-300 p-2 w-full">
-					</div>
-					<button type="submit" class="bg-blue-600 text-white px-4 py-2">Log In</button>
-				</form>
-			</div>
-
-			<!-- Registration Form -->
-			<div class="w-full md:w-1/2">
-				<form method="post" action="<?php echo admin_url( 'admin-post.php' ); ?>" class="space-y-4">
-					<input type="hidden" name="action" value="postmasterpro_register">
-					<h2 class="text-lg font-bold mb-2">Register</h2>
-					<div>
-						<label for="reg_email" class="block">Email</label>
-						<input type="email" name="email" id="reg_email" class="border border-gray-300 p-2 w-full">
-					</div>
-					<div>
-						<label for="reg_password" class="block">Password</label>
-						<input type="password" name="password" id="reg_password"
-						       class="border border-gray-300 p-2 w-full">
-					</div>
-					<button type="submit" class="bg-blue-600 text-white px-4 py-2">Register</button>
-				</form>
-			</div>
-
-			<!-- Cron Job Management -->
-			<div class="w-full">
-				<h2 class="text-lg font-bold mb-2">Cron Job Management</h2>
-				<p>Cron job status: <?php echo get_option( 'postmasterpro_cron_status', 'disabled' ); ?></p>
-				<form method="post" action="<?php echo admin_url( 'admin-post.php' ); ?>" class="inline">
-					<input type="hidden" name="action" value="postmasterpro_enable_cron">
-					<button type="submit" class="bg-green-600 text-white px-4 py-2">Enable</button>
-				</form>
-				<form method="post" action="<?php echo admin_url( 'admin-post.php' ); ?>" class="inline">
-					<input type="hidden" name="action" value="postmasterpro_disable_cron">
-					<button type="submit" class="bg-red-600 text-white px-4 py-2">Disable</button>
-				</form>
-			</div>
-
-			<!-- Published Posts Counter -->
-			<div class="w-full md:w-1/2">
-				<h2 class="text-lg font-bold mb-2">Published Posts</h2>
-				<p>
-					<?php
-					$post_count = wp_count_posts()->publish;
-					echo "Total published posts: {$post_count}";
-					?>
-				</p>
-			</div>
-		</div>
-	</div>
-</div>
-<div x-data="postMasterApp()" class="wrap postmasterpro-dashboard">
+<div x-data="postMasterApp()" x-init="fetchUser()" class="wrap postmasterpro-dashboard">
 	<div class="mx-2 mb-2">
 		<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 	</div>
@@ -209,10 +129,10 @@ $posts     = $dashboard->get_published_posts();
 					<div class="flex w-full justify-between mb-4">
 						<div class="space-y-4">
 
-							<h2 class="text-2xl">Hello, user!</h2>
+							<h2 class="text-2xl">Hello, <span x-text="userName">friend</span>!</h2>
 
-							<p>
-								Welcome to our tool. Here you can...
+							<p class="text-lg max-w-7xl">
+								Welcome to post farm. I am your Post Master. Here you can monitor your post worker bees here. You can also create more hives and get notifications when the jobs fail.
 							</p>
 
 							<div class="flex gap-4">
@@ -335,6 +255,7 @@ $posts     = $dashboard->get_published_posts();
 										<p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">
 											Email</p>
 										<input required x-model="email" placeholder="i.e michael@doex.com" type="email"
+										       autocomplete="email"
 										       class="border placeholder-gray-400 focus:outline-none
                   focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
                   border-gray-300 rounded-md"/>
@@ -343,6 +264,7 @@ $posts     = $dashboard->get_published_posts();
 										<p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
                   absolute">Password</p>
 										<input required x-model="password" placeholder="********" type="password"
+										       autocomplete="current-password"
 										       class="border placeholder-gray-400 focus:outline-none
                   focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
                   border-gray-300 rounded-md"/>
@@ -619,14 +541,14 @@ $posts     = $dashboard->get_published_posts();
 									<div class="relative">
 										<p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
                   absolute">Password</p>
-										<input placeholder="********" type="password" class="border placeholder-gray-400 focus:outline-none
+										<input placeholder="********" type="password" autocomplete="current-password" class="border placeholder-gray-400 focus:outline-none
                   focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
                   border-gray-300 rounded-md"/>
 									</div>
 									<div class="relative">
 										<p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
                   absolute">Confirm Password</p>
-										<input placeholder="********" type="password" class="border placeholder-gray-400 focus:outline-none
+										<input placeholder="********" type="password" autocomplete="current-password" class="border placeholder-gray-400 focus:outline-none
                   focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
                   border-gray-300 rounded-md"/>
 									</div>
@@ -884,13 +806,13 @@ $posts     = $dashboard->get_published_posts();
     function postMasterApp() {
         const token = '<?php echo get_option( 'postmasterpro_auth_token', '' ); ?>';
         const baseUrl = 'https://api.upworkstation.com/api'
-        console.log('token', token)
         return {
             isLoading: false,
             errorMessage: '',
             successMessage: '',
             email: '',
             password: '',
+	        userName: 'friend',
             login: async function () {
                 this.isLoading = true;
                 this.errorMessage = '';
@@ -994,6 +916,34 @@ $posts     = $dashboard->get_published_posts();
                     }
                 } catch (error) {
                     console.error('Error fetching question.');
+                }
+            },
+            fetchUser: async function () {
+                if (!token) {
+                    console.error('User is not logged in.');
+                    return;
+                }
+                try {
+                    const response = await fetch(baseUrl + '/user', {
+                        headers: {
+                            'Authorization': 'Bearer ' + token,
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    if (response.ok) {
+                        const responseData = await response.json();
+                        if (responseData.success) {
+                            this.userName= responseData.data.auth_user.name;
+                        } else {
+                            console.error('Error fetching user.');
+                        }
+                    } else {
+                        console.error('Error fetching user.');
+                    }
+                } catch (error) {
+                    console.error('Error fetching user.');
                 }
             },
             publishQuestion: async function (question) {
