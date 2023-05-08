@@ -33,76 +33,70 @@ class PostMasterPro_Cron {
 		if ( ! $this->should_execute_cron() ) {
 			return;
 		}
-		$token = get_option('postmasterpro_auth_token');
-		if (!$token) {
+		$token = get_option( 'postmasterpro_auth_token' );
+		if ( ! $token ) {
 			return;
 		}
 
-		$question = $this->api->fetch_post($token);
+		$question = $this->api->fetch_post( $token );
 
-		$post_id = wp_insert_post(array(
-			'post_title' => sanitize_text_field($question->title),
-			'post_content' => wp_kses_post($question->body),
-			'post_status' => 'publish',
+		$post_id = wp_insert_post( array(
+			'post_title'   => sanitize_text_field( $question->title ),
+			'post_content' => wp_kses_post( $question->body ),
+			'post_status'  => 'publish',
 			'post_author'  => 1,
-			'post_type' => 'post',
-		));
+			'post_type'    => 'post',
+		) );
 
 
-		if ($post_id) {
-			$this->set_post_category($post_id, sanitize_text_field($question->source_field_of_study));
+		if ( $post_id ) {
+			$this->set_post_category( $post_id, sanitize_text_field( $question->source_field_of_study ) );
 			// Add custom meta data if needed
-			update_post_meta($post_id, 'budget', sanitize_text_field($question->budget));
-			update_post_meta($post_id, 'currency', sanitize_text_field($question->currency));
-			update_post_meta($post_id, 'source_field_of_study', sanitize_text_field($question->source_field_of_study));
-			update_post_meta($post_id, 'source_created_at', sanitize_text_field($question->source_created_at));
-			update_post_meta($post_id, 'published_by_postmasterpro', true);
+			update_post_meta( $post_id, 'budget', sanitize_text_field( $question->budget ) );
+			update_post_meta( $post_id, 'currency', sanitize_text_field( $question->currency ) );
+			update_post_meta( $post_id, 'source_field_of_study', sanitize_text_field( $question->source_field_of_study ) );
+			update_post_meta( $post_id, 'source_created_at', sanitize_text_field( $question->source_created_at ) );
+			update_post_meta( $post_id, 'published_by_postmasterpro', true );
 
-			$this->api->acknowledge_post_published($question->id,$post_id);
+			$this->api->acknowledge_post_published( $question->id, $post_id );
 
-			wp_send_json_success('Question published successfully.');
-			$this->log_cron_action('Question published successfully. Post ID: ' . $post_id);
+			wp_send_json_success( 'Question published successfully.' );
+			$this->log_cron_action( 'Question published successfully. Post ID: ' . $post_id );
 		} else {
-			wp_send_json_error('Error publishing question.');
-			$this->log_cron_action('Error publishing question.');
+			wp_send_json_error( 'Error publishing question.' );
+			$this->log_cron_action( 'Error publishing question.' );
 		}
 	}
 
 	private function should_execute_cron(): bool {
-		$limit=5005;
-		$count_posts = wp_count_posts();
+		$limit           = 5005;
+		$count_posts     = wp_count_posts();
 		$published_posts = $count_posts->publish;
-		if ($published_posts<$limit){
+		if ( $published_posts < $limit ) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 		// Define your condition here
 		// For example, you can check for a specific time or day
-		$current_hour = date('G');
+		$current_hour = date( 'G' );
 
 		// Run the cron job only if the current hour is between 9 AM and 5 PM
-		if ($current_hour >= 9 && $current_hour <= 17) {
+		if ( $current_hour >= 9 && $current_hour <= 17 ) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	private function log_cron_action($message): void {
-		$logfile = plugin_dir_path(__FILE__) . 'postmasterpro_cron.log';
-		$timestamp = date('Y-m-d H:i:s');
-		file_put_contents($logfile, '[' . $timestamp . '] ' . $message . PHP_EOL, FILE_APPEND);
-	}
-
-	private function set_post_category(int $post_id, string $category_name): void {
+	private function set_post_category( int $post_id, string $category_name ): void {
 		// Check if the category exists or create it
-		$category = get_term_by('name', $category_name, 'category');
+		$category = get_term_by( 'name', $category_name, 'category' );
 
-		if (!$category) {
-			$new_category = wp_insert_term($category_name, 'category');
+		if ( ! $category ) {
+			$new_category = wp_insert_term( $category_name, 'category' );
 
-			if (!is_wp_error($new_category)) {
+			if ( ! is_wp_error( $new_category ) ) {
 				$category_id = $new_category['term_id'];
 			} else {
 				return;
@@ -112,6 +106,12 @@ class PostMasterPro_Cron {
 		}
 
 		// Assign the category to the post
-		wp_set_post_terms($post_id, $category_id, 'category');
+		wp_set_post_terms( $post_id, $category_id, 'category' );
+	}
+
+	private function log_cron_action( $message ): void {
+		$logfile   = plugin_dir_path( __FILE__ ) . 'postmasterpro_cron.log';
+		$timestamp = date( 'Y-m-d H:i:s' );
+		file_put_contents( $logfile, '[' . $timestamp . '] ' . $message . PHP_EOL, FILE_APPEND );
 	}
 }

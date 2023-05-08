@@ -13,10 +13,6 @@ class PostMasterPro {
 		$this->define_admin_hooks();
 	}
 
-	public static function activate(): void {
-		add_option('postmasterpro_cron_status', 'disabled');
-	}
-
 	private function load_dependencies(): void {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-postmasterpro-api.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-postmasterpro-cron.php';
@@ -29,6 +25,14 @@ class PostMasterPro {
 		add_action( 'admin_init', array( $admin, 'register_settings' ) );
 	}
 
+	public function get_version(): string {
+		return $this->version;
+	}
+
+	public static function activate(): void {
+		add_option( 'postmasterpro_cron_status', 'disabled' );
+	}
+
 	public function run(): void {
 		add_action( 'init', array( $this, 'init' ) );
 	}
@@ -36,9 +40,5 @@ class PostMasterPro {
 	public function init(): void {
 		// Initialize the PostMasterPro_Cron class
 		$this->loader = new PostMasterPro_Cron();
-	}
-
-	public function get_version(): string {
-		return $this->version;
 	}
 }

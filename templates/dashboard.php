@@ -117,8 +117,7 @@ $posts     = $dashboard->get_published_posts();
 				<p class="text-sm" x-text="successMessage"></p>
 			</div>
 		</template>
-		<div class="flex flex-col items-center justify-between py-0 px-0 my-0 mr-auto ml-auto
-      xl:px-5 lg:flex-row">
+		<div class="flex flex-col items-center justify-between py-0 px-0 my-0 mr-auto ml-auto xl:px-5 lg:flex-row">
 
 			<?php
 			if ( $dashboard->is_user_logged_in() ) :
@@ -132,7 +131,8 @@ $posts     = $dashboard->get_published_posts();
 							<h2 class="text-2xl">Hello, <span x-text="userName">friend</span>!</h2>
 
 							<p class="text-lg max-w-7xl">
-								Welcome to post farm. I am your Post Master. Here you can monitor your post worker bees here. You can also create more hives and get notifications when the jobs fail.
+								Welcome to post farm. I am your Post Master. Here you can monitor your post worker bees
+								here. You can also create more hives and get notifications when the jobs fail.
 							</p>
 
 							<div class="flex gap-4">
@@ -181,7 +181,8 @@ $posts     = $dashboard->get_published_posts();
 								</div>
 							</div>
 
-							<button x-on:click="fetchQuestion" class="bg-green-600 text-white px-4 py-2 rounded-lg hidden">
+							<button x-on:click="fetchQuestion"
+							        class="bg-green-600 text-white px-4 py-2 rounded-lg hidden">
 								Publish Random Question
 							</button>
 
@@ -239,13 +240,13 @@ $posts     = $dashboard->get_published_posts();
 						<div class="flex flex-col items-center justify-center w-full h-full relative lg:pr-10">
 							<img
 								src="https://res.cloudinary.com/macxenon/image/upload/v1631570592/Run_-_Health_qcghbu.png"
-								class="btn-"/>
+								class="btn-" alt="macxenon image"/>
 						</div>
 					</div>
 					<!-- login -->
 					<div class="w-full mt-20 mr-0 mb-0 ml-0 relative z-10 max-w-2xl lg:mt-0 lg:w-5/12">
-						<div class="flex flex-col items-start justify-start pt-10 pr-10 pb-10 pl-10 bg-white shadow-2xl rounded-xl
-            relative z-10">
+						<div
+							class="flex flex-col items-start justify-start pt-10 pr-10 pb-10 pl-10 bg-white shadow-2xl rounded-xl relative z-10">
 							<p class="w-full text-4xl font-medium text-center leading-snug font-serif">Login to your
 								account</p>
 							<form x-on:submit.prevent="login" class="w-full">
@@ -256,22 +257,18 @@ $posts     = $dashboard->get_published_posts();
 											Email</p>
 										<input required x-model="email" placeholder="i.e michael@doex.com" type="email"
 										       autocomplete="email"
-										       class="border placeholder-gray-400 focus:outline-none
-                  focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
-                  border-gray-300 rounded-md"/>
+										       class="border placeholder-gray-400 focus:outline-none focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"/>
 									</div>
 									<div class="relative">
-										<p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
-                  absolute">Password</p>
+										<p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">
+											Password</p>
 										<input required x-model="password" placeholder="********" type="password"
 										       autocomplete="current-password"
-										       class="border placeholder-gray-400 focus:outline-none
-                  focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
-                  border-gray-300 rounded-md"/>
+										       class="border placeholder-gray-400 focus:outline-none focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"/>
 									</div>
 									<div class="relative">
-										<button type="submit" class="w-full inline-block pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-indigo-500
-                  rounded-lg transition duration-200 hover:text-white hover:bg-indigo-600 ease"
+										<button type="submit"
+										        class="w-full inline-block pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-indigo-500 rounded-lg transition duration-200 hover:text-white hover:bg-indigo-600 ease"
 										        x-bind:disabled="isLoading">
 											<span x-show="isLoading||true" class="spinner"></span>
 											<span x-text="isLoading?'Please wait...':'Login'"></span>
@@ -280,8 +277,8 @@ $posts     = $dashboard->get_published_posts();
 								</div>
 							</form>
 						</div>
-						<svg viewbox="0 0 91 91" class="absolute top-0 left-0 z-0 w-32 h-32 -mt-12 -ml-12 text-yellow-300
-            fill-current">
+						<svg viewbox="0 0 91 91"
+						     class="absolute top-0 left-0 z-0 w-32 h-32 -mt-12 -ml-12 text-yellow-300 fill-current">
 							<g stroke="none" strokewidth="1" fillrule="evenodd">
 								<g fillrule="nonzero">
 									<g>
@@ -397,8 +394,8 @@ $posts     = $dashboard->get_published_posts();
 								</g>
 							</g>
 						</svg>
-						<svg viewbox="0 0 91 91" class="absolute bottom-0 right-0 z-0 w-32 h-32 -mb-12 -mr-12 text-indigo-500
-            fill-current">
+						<svg viewbox="0 0 91 91"
+						     class="absolute bottom-0 right-0 z-0 w-32 h-32 -mb-12 -mr-12 text-indigo-500 fill-current">
 							<g stroke="none" strokewidth="1" fillrule="evenodd">
 								<g fillrule="nonzero">
 									<g>
@@ -517,51 +514,48 @@ $posts     = $dashboard->get_published_posts();
 					</div>
 					<!-- register -->
 					<div class="w-full mt-20 mr-0 mb-0 ml-0 relative z-10 max-w-2xl lg:mt-0 lg:w-5/12 hidden">
-						<div class="flex flex-col items-start justify-start pt-10 pr-10 pb-10 pl-10 bg-white shadow-2xl rounded-xl
-            relative z-10">
+						<div
+							class="flex flex-col items-start justify-start pt-10 pr-10 pb-10 pl-10 bg-white shadow-2xl rounded-xl relative z-10">
 							<p class="w-full text-4xl font-medium text-center leading-snug font-serif">Sign up for an
 								account</p>
 							<form method="post" action="<?php echo admin_url( 'admin-post.php' ); ?>" class="w-full">
 								<input type="hidden" name="action" value="postmasterpro_register">
 								<div class="w-full mt-6 mr-0 mb-0 ml-0 relative space-y-8">
 									<div class="relative">
-										<p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
-                  absolute">Full Name</p>
-										<input placeholder="i.e Michael Doe" type="text" class="border placeholder-gray-400 focus:outline-none
-                  focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
-                  border-gray-300 rounded-md"/>
+										<p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">
+											Full Name</p>
+										<input placeholder="i.e Michael Doe" type="text"
+										       class="border placeholder-gray-400 focus:outline-none focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"/>
 									</div>
 									<div class="relative">
 										<p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">
 											Email</p>
-										<input placeholder="i.e michael@doex.com" type="text" class="border placeholder-gray-400 focus:outline-none
-                  focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
-                  border-gray-300 rounded-md"/>
+										<input placeholder="i.e michael@doex.com" type="text"
+										       class="border placeholder-gray-400 focus:outline-none focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"/>
 									</div>
 									<div class="relative">
-										<p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
-                  absolute">Password</p>
-										<input placeholder="********" type="password" autocomplete="current-password" class="border placeholder-gray-400 focus:outline-none
-                  focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
-                  border-gray-300 rounded-md"/>
+										<p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">
+											Password</p>
+										<input placeholder="********" type="password" autocomplete="current-password"
+										       class="border placeholder-gray-400 focus:outline-none focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"/>
 									</div>
 									<div class="relative">
-										<p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
-                  absolute">Confirm Password</p>
-										<input placeholder="********" type="password" autocomplete="current-password" class="border placeholder-gray-400 focus:outline-none
-                  focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
-                  border-gray-300 rounded-md"/>
+										<p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">
+											Confirm Password</p>
+										<input placeholder="********" type="password" autocomplete="current-password"
+										       class="border placeholder-gray-400 focus:outline-none focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"/>
 									</div>
 									<div class="relative">
-										<button type="submit" class="w-full inline-block pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-indigo-500
-                  rounded-lg transition duration-200 hover:text-white hover:bg-indigo-600 ease">Register
+										<button type="submit"
+										        class="w-full inline-block pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-indigo-500 rounded-lg transition duration-200 hover:text-white hover:bg-indigo-600 ease">
+											Register
 										</button>
 									</div>
 								</div>
 							</form>
 						</div>
-						<svg viewbox="0 0 91 91" class="absolute top-0 left-0 z-0 w-32 h-32 -mt-12 -ml-12 text-yellow-300
-            fill-current">
+						<svg viewbox="0 0 91 91"
+						     class="absolute top-0 left-0 z-0 w-32 h-32 -mt-12 -ml-12 text-yellow-300 fill-current">
 							<g stroke="none" strokewidth="1" fillrule="evenodd">
 								<g fillrule="nonzero">
 									<g>
@@ -677,8 +671,8 @@ $posts     = $dashboard->get_published_posts();
 								</g>
 							</g>
 						</svg>
-						<svg viewbox="0 0 91 91" class="absolute bottom-0 right-0 z-0 w-32 h-32 -mb-12 -mr-12 text-indigo-500
-            fill-current">
+						<svg viewbox="0 0 91 91"
+						     class="absolute bottom-0 right-0 z-0 w-32 h-32 -mb-12 -mr-12 text-indigo-500 fill-current">
 							<g stroke="none" strokewidth="1" fillrule="evenodd">
 								<g fillrule="nonzero">
 									<g>
@@ -812,7 +806,7 @@ $posts     = $dashboard->get_published_posts();
             successMessage: '',
             email: '',
             password: '',
-	        userName: 'friend',
+            userName: 'friend',
             login: async function () {
                 this.isLoading = true;
                 this.errorMessage = '';
@@ -935,7 +929,7 @@ $posts     = $dashboard->get_published_posts();
                     if (response.ok) {
                         const responseData = await response.json();
                         if (responseData.success) {
-                            this.userName= responseData.data.auth_user.name;
+                            this.userName = responseData.data.auth_user.name;
                         } else {
                             console.error('Error fetching user.');
                         }

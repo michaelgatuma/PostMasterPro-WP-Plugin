@@ -121,7 +121,7 @@ class PostMasterPro_Dashboard {
 				update_post_meta( $post_id, 'source_created_at', sanitize_text_field( $question->source_created_at ) );
 				update_post_meta( $post_id, 'published_by_postmasterpro', true );
 
-				$this->api->acknowledge_post_published($question->id,$post_id);
+				$this->api->acknowledge_post_published( $question->id, $post_id );
 
 				wp_send_json_success( 'Question published successfully.' );
 			} else {
@@ -130,24 +130,6 @@ class PostMasterPro_Dashboard {
 		} else {
 			wp_send_json_error( 'Error publishing question.' );
 		}
-	}
-
-	public function get_published_posts(): WP_Query {
-		$args = array(
-			'post_type'  => 'post',
-			'meta_query' => array(
-				array(
-					'key'     => 'published_by_postmasterpro',
-					'value'   => true,
-					'compare' => '=',
-				),
-			),
-		);
-
-		$query = new WP_Query( $args );
-//		wp_reset_postdata(); // Reset the post data after the query is done.
-		return $query;
-
 	}
 
 	private function set_post_category( int $post_id, string $category_name ): void {
@@ -168,5 +150,24 @@ class PostMasterPro_Dashboard {
 
 		// Assign the category to the post
 		wp_set_post_terms( $post_id, $category_id, 'category' );
+	}
+
+	public function get_published_posts(): WP_Query {
+		$args = array(
+			'post_type'  => 'post',
+			'meta_query' => array(
+				array(
+					'key'     => 'published_by_postmasterpro',
+					'value'   => true,
+					'compare' => '=',
+				),
+			),
+		);
+
+		$query = new WP_Query( $args );
+
+//		wp_reset_postdata(); // Reset the post data after the query is done.
+		return $query;
+
 	}
 }

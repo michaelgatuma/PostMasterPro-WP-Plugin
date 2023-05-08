@@ -1,9 +1,13 @@
 .postmasterpro-dashboard {
     /* Add custom CSS styles for the dashboard here */
 }
+
 @keyframes spinner {
-    to {transform: rotate(360deg);}
+    to {
+        transform: rotate(360deg);
+    }
 }
+
 .spinner:before {
     content: '';
     box-sizing: border-box;
