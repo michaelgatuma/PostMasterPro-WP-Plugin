@@ -33,12 +33,5 @@ require_once plugin_dir_path(__FILE__) . 'includes/class-postmasterpro-dashboard
 function run_postmasterpro(): void {
 	$plugin = new PostMasterPro();
 	$plugin->run();
-
-	$dashboard = new PostMasterPro_Dashboard('1.0');
-//	$posts=$dashboard->get_published_posts();
-//	$posts->post_count
-
-	// Initialize the PostMasterPro_Cron class
-	$cron = new PostMasterPro_Cron();
 }
 run_postmasterpro();

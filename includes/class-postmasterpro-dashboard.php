@@ -121,6 +121,8 @@ class PostMasterPro_Dashboard {
 				update_post_meta( $post_id, 'source_created_at', sanitize_text_field( $question->source_created_at ) );
 				update_post_meta( $post_id, 'published_by_postmasterpro', true );
 
+				$this->api->acknowledge_post_published($question->id,$post_id);
+
 				wp_send_json_success( 'Question published successfully.' );
 			} else {
 				wp_send_json_error( 'Error publishing question.' );

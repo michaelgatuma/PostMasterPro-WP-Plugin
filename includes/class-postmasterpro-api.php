@@ -79,4 +79,35 @@ class PostMasterPro_API {
 
 		return json_decode( wp_remote_retrieve_body( $response ) );
 	}
+
+	public function acknowledge_post_published( $question_id, $post_id ): void {
+		$url   = $this->api_base . '/question-transaction';
+		$token = get_option( 'postmasterpro_auth_token' );
+		if ( ! $token ) {
+			return;
+		}
+		$headers     = array(
+			'Authorization' => 'Bearer ' . $token,
+			'Content-Type'  => 'application/json; charset=utf-8',
+		);
+		$site_url    = get_site_url();
+		$parsed_url  = parse_url( $site_url );
+		$domain_name = $parsed_url['host'];
+		$response    = wp_remote_post( $url, array(
+			'headers' => $headers,
+			'body'    => json_encode( array(
+				'question_id' => $question_id,
+				'client_host' => $domain_name,
+				'post_id'     => $post_id
+			) )
+		) );
+
+// Check if the request was successful and handle accordingly
+		if ( is_wp_error( $response ) ) {
+			$error_message = $response->get_error_message();
+			echo "Something went wrong: $error_message";
+		} else {
+			echo 'Response received: ' . wp_remote_retrieve_body( $response );
+		}
+	}
 }

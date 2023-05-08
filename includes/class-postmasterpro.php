@@ -34,6 +34,7 @@ class PostMasterPro {
 	}
 
 	public function init(): void {
+		// Initialize the PostMasterPro_Cron class
 		$this->loader = new PostMasterPro_Cron();
 	}
 
