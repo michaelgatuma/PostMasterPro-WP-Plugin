@@ -3,7 +3,7 @@
  * Plugin Name: PostMaster Pro
  * Plugin URI: https://gatuma.me/postmasterpro
  * Description: Fetches and publishes posts from an external API.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Michael Gatuma
  * Author URI: https://gatuma.me
  * License: GPL-2.0+

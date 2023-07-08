@@ -182,7 +182,7 @@ $posts     = $dashboard->get_published_posts();
 							</div>
 
 							<button x-on:click="fetchQuestion"
-							        class="bg-green-600 text-white px-4 py-2 rounded-lg hidden">
+							        class="bg-green-600 text-white px-4 py-2 rounded-lg">
 								Publish Random Question
 							</button>
 
